@@ -88,6 +88,15 @@ void Game::InitBoard() {
 
 // Display boards on  screen
 void Game::ShowBoards() {
+	// Prototype of general board
+	for (unsigned y = 0; y < board.size.height; y++) {
+		for (unsigned x = 0; x < board.size.width; x++)
+			std::cout << (char)board.UpperBoard[y][x];
+
+		std::cout << std::endl;
+	}
+
+#ifdef DEBUG
 	for (unsigned y = 0; y < board.size.height; y++) {
 		for (unsigned x = 0; x < board.size.width; x++) {
 			if (board.BackgroundBoard[y][x] == -1)
@@ -97,7 +106,9 @@ void Game::ShowBoards() {
 		}
 		std::cout << std::endl;
 	}
+#endif // DEBUG
 
+}
 
 	// Prototype of general board
 	for (unsigned y = 0; y < board.size.height; y++) {
