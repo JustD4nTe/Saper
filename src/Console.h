@@ -11,4 +11,6 @@ struct Console {
 	INPUT_RECORD input;
 
 	COORD crdCursor;
+
+	Console();
 };

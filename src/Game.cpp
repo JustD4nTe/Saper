@@ -9,7 +9,6 @@
 // Constructor
 Game::Game() {
 	InitBoard();
-	InitCmd();
 
 	ShowBoards();
 }
@@ -50,21 +49,6 @@ void Game::InitBoard() {
 	} while (BombsCount < Bombs); // until we get all bombs
 }
 
-// Initialization for console
-void Game::InitCmd() {
-	// Get console handlers
-	cmd.hIn = GetStdHandle(STD_INPUT_HANDLE);
-	cmd.hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	// Get information about console(flags)
-	GetConsoleMode(cmd.hIn, &cmd.dwConsoleMode);
-
-	// Little annoying stuff => disable QuickEdit
-	// it's blocks mouse event in Win10
-	cmd.dwConsoleMode |= ENABLE_MOUSE_INPUT;
-	cmd.dwConsoleMode &= ~ENABLE_QUICK_EDIT_MODE;
-	// Save changes 
-	SetConsoleMode(cmd.hIn, cmd.dwConsoleMode | ENABLE_EXTENDED_FLAGS);	
 }
 
 // Display boards on  screen
