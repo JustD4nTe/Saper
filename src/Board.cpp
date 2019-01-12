@@ -19,3 +19,10 @@ Board::Board() {
 	for (unsigned y = 0; y < size.height; y++)
 		BackgroundBoard[y] = new int[size.width] {0};
 }
+
+bool operator<(COORD a, BoardSize b) {
+	if (a.X < b.width && a.Y < b.height)
+		return true;
+	else
+		return false;
+}

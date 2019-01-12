@@ -7,8 +7,6 @@
 // Constructor
 Game::Game() {
 	InitBoard();
-
-	ShowBoards();
 }
 
 // Randomize mines on map
@@ -87,7 +85,7 @@ void Game::InitBoard() {
 }
 
 // Display boards on  screen
-void Game::ShowBoards() {
+void Game::ShowBoard() {
 	// Prototype of general board
 	for (unsigned y = 0; y < board.size.height; y++) {
 		for (unsigned x = 0; x < board.size.width; x++)
@@ -110,11 +108,16 @@ void Game::ShowBoards() {
 
 }
 
-	// Prototype of general board
-	for (unsigned y = 0; y < board.size.height; y++) {
-		for (unsigned x = 0; x < board.size.width; x++)
-			std::cout << (char)board.UpperBoard[y][x];
+void Game::Start() {
+	ShowBoard();
 
-		std::cout << std::endl;
+	while (true) {
+		COORD crd = cmd.WaitForClick();
+		if (crd < board.size) {
+			if (board.BackgroundBoard[crd.Y][crd.X] == -1)
+				std::cout << "*" << std::flush;
+			else
+				std::cout << board.BackgroundBoard[crd.Y][crd.X] << std::flush;
+		}
 	}
 }

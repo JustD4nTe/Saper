@@ -16,5 +16,8 @@ struct Game {
 
 	void InitBoard();
 
-	void ShowBoards();
+	void ShowBoard();
+
+
+	void Start();
 };
