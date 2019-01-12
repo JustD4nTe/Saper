@@ -14,7 +14,7 @@ Game::Game() {
 // Randomize mines on map
 void Game::SetBombs() {
 	// Seed ;)
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	// Count of bombs which were planted
 	unsigned BombsCount = 0;
@@ -36,8 +36,8 @@ void Game::SetBombs() {
 // Searching bombs then increment value in nearby fields
 // (8 directions)
 void Game::CountNearbyBombs() {
-	for (int y = 0; y < board.size.height; y++) {
-		for (int x = 0; x < board.size.width; x++) {
+	for (int y = 0; y < (int)board.size.height; y++) {
+		for (int x = 0; x < (int)board.size.width; x++) {
 			if (board.BackgroundBoard[y][x] == -1) {
 				if ((x - 1) >= 0) {
 					if(board.BackgroundBoard[y][x - 1] != -1)
@@ -47,7 +47,7 @@ void Game::CountNearbyBombs() {
 						if(board.BackgroundBoard[y - 1][x - 1] != -1)
 							board.BackgroundBoard[y - 1][x - 1]++;
 					}
-					if ((y + 1) < board.size.height) {
+					if ((y + 1) < (int)board.size.height) {
 						if(board.BackgroundBoard[y + 1][x - 1] != -1)
 							board.BackgroundBoard[y + 1][x - 1]++;
 					}
@@ -57,12 +57,12 @@ void Game::CountNearbyBombs() {
 					if (board.BackgroundBoard[y - 1][x] != -1)
 						board.BackgroundBoard[y - 1][x]++;
 				}
-				if ((y + 1) < board.size.height) {
+				if ((y + 1) < (int)board.size.height) {
 					if (board.BackgroundBoard[y + 1][x] != -1)
 						board.BackgroundBoard[y + 1][x]++;
 				}
 
-				if ((x + 1) < board.size.width) {
+				if ((x + 1) < (int)board.size.width) {
 					if (board.BackgroundBoard[y][x + 1] != -1)
 						board.BackgroundBoard[y][x + 1]++;
 
@@ -70,7 +70,7 @@ void Game::CountNearbyBombs() {
 						if (board.BackgroundBoard[y - 1][x + 1] != -1)
 							board.BackgroundBoard[y - 1][x + 1]++;
 					}
-					if ((y + 1) < board.size.height) {
+					if ((y + 1) < (int)board.size.height) {
 						if (board.BackgroundBoard[y + 1][x + 1] != -1)
 							board.BackgroundBoard[y + 1][x + 1]++;
 					}
