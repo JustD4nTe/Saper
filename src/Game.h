@@ -4,13 +4,6 @@
 
 // "Core" of this game
 struct Game {
-	// Board size
-	unsigned X = 10;
-	unsigned Y = 8;
-	// Number of bombs
-	unsigned Bombs = 10;
-
-
 	Board board;
 	Console cmd;
 
@@ -18,6 +11,7 @@ struct Game {
 	// Methods
 	Game();
 
+	void SetBombs();
 	void InitBoard();
 
 	void ShowBoards();
