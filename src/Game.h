@@ -12,6 +12,8 @@ struct Game {
 	Game();
 
 	void SetBombs();
+	void CountNearbyBombs();
+
 	void InitBoard();
 
 	void ShowBoards();

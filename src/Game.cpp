@@ -31,11 +31,59 @@ void Game::SetBombs() {
 		}
 	} while (BombsCount < board.Bombs); // until we get all bombs
 }
+
+// TODO: discover better algo
+// Searching bombs then increment value in nearby fields
+// (8 directions)
+void Game::CountNearbyBombs() {
+	for (int y = 0; y < board.size.height; y++) {
+		for (int x = 0; x < board.size.width; x++) {
+			if (board.BackgroundBoard[y][x] == -1) {
+				if ((x - 1) >= 0) {
+					if(board.BackgroundBoard[y][x - 1] != -1)
+						board.BackgroundBoard[y][x - 1]++;
+
+					if ((y - 1) >= 0) {
+						if(board.BackgroundBoard[y - 1][x - 1] != -1)
+							board.BackgroundBoard[y - 1][x - 1]++;
+					}
+					if ((y + 1) < board.size.height) {
+						if(board.BackgroundBoard[y + 1][x - 1] != -1)
+							board.BackgroundBoard[y + 1][x - 1]++;
+					}
+				}
+
+				if ((y - 1) >= 0) {
+					if (board.BackgroundBoard[y - 1][x] != -1)
+						board.BackgroundBoard[y - 1][x]++;
+				}
+				if ((y + 1) < board.size.height) {
+					if (board.BackgroundBoard[y + 1][x] != -1)
+						board.BackgroundBoard[y + 1][x]++;
+				}
+
+				if ((x + 1) < board.size.width) {
+					if (board.BackgroundBoard[y][x + 1] != -1)
+						board.BackgroundBoard[y][x + 1]++;
+
+					if ((y - 1) >= 0) {
+						if (board.BackgroundBoard[y - 1][x + 1] != -1)
+							board.BackgroundBoard[y - 1][x + 1]++;
+					}
+					if ((y + 1) < board.size.height) {
+						if (board.BackgroundBoard[y + 1][x + 1] != -1)
+							board.BackgroundBoard[y + 1][x + 1]++;
+					}
+				}
+			}
+		}
+	}
 }
 
 // Initialization for board
 void Game::InitBoard() {
 	SetBombs();
+	CountNearbyBombs();
 }
 
 // Display boards on  screen
