@@ -16,8 +16,10 @@ struct Console {
 	// Coords of cursor
 	COORD crdCursor;
 
+	CONSOLE_CURSOR_INFO hConsoleCursorInfo;
+
 	Console();
 
 	COORD WaitForClick();
-
+	void ChangeCursorVisibility(bool disable = true);
 };

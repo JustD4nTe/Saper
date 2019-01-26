@@ -16,6 +16,19 @@ Console::Console() {
 	dwConsoleMode &= ~ENABLE_QUICK_EDIT_MODE;
 	// Save changes 
 	SetConsoleMode(hIn, dwConsoleMode | ENABLE_EXTENDED_FLAGS);
+
+	// Disable cursor, we don't need it
+	// look better without it
+	ChangeCursorVisibility();
+}
+
+// Enable/Disable cursor visibility in CMD
+void Console::ChangeCursorVisibility(bool disable)
+{
+	GetConsoleCursorInfo(hOut, &hConsoleCursorInfo);
+
+	hConsoleCursorInfo.bVisible = hConsoleCursorInfo.bVisible & !disable;
+	SetConsoleCursorInfo(hOut, &hConsoleCursorInfo);
 }
 
 COORD Console::WaitForClick() {
