@@ -11,7 +11,7 @@ Board::Board() {
 		UpperBoard[y] = new FieldType[size.width];
 		// Fill all fields in row 
 		for (unsigned x = 0; x < size.width; x++)
-			UpperBoard[y][x] = FieldType::BOMB;
+			UpperBoard[y][x] = FieldType::EMPTY;
 	}
 
 	// Initialize board with zero

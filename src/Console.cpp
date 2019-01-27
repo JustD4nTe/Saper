@@ -43,9 +43,13 @@ void Console::WaitForClick() {
 		case MOUSE_EVENT:
 			// Set value only when left/right button was clicked
 			if (input.Event.MouseEvent.dwButtonState & (FROM_LEFT_1ST_BUTTON_PRESSED | RIGHTMOST_BUTTON_PRESSED)) {
-					UserMouse.crdPosition = input.Event.MouseEvent.dwMousePosition;
-					UserMouse.dwButtonState = input.Event.MouseEvent.dwButtonState;
-					SetConsoleCursorPosition(hOut, UserMouse.crdPosition);
+				// Position
+				UserMouse.crdPosition = input.Event.MouseEvent.dwMousePosition;
+				// Buttons clicked
+				UserMouse.dwButtonState = input.Event.MouseEvent.dwButtonState;
+				// Set cursor position at same as mouse
+				SetConsoleCursorPosition(hOut, UserMouse.crdPosition);
+				return;
 			}
 		}
 	}

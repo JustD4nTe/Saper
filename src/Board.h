@@ -7,7 +7,8 @@
 enum FieldType {
 	EMPTY = ' ',
 	BOMB = '*',
-	NUMBER = '0'
+	NUMBER = '0',
+	FLAG = 'F'
 };
 
 // Uhm, just size of board counted from 0 (not 1)

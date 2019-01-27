@@ -108,20 +108,55 @@ void Game::ShowBoard() {
 
 }
 
+// All game
 void Game::Start() {
+	// Drawning board on screen
 	ShowBoard();
 
 	Mouse* UserMouse = &cmd.UserMouse;
-	while (true) {
-		cmd.WaitForClick();
-		if (*UserMouse < board.size) {
-			
-			// Game Over
-			if (board.BackgroundBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X] == -1)
-				std::cout << "*" << std::flush;
 
-			else
-				std::cout << board.BackgroundBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X] << std::flush;
+	// General loop 
+	while (true) {	
+		cmd.WaitForClick();
+
+		// User must indicate a board
+		if (*UserMouse < board.size) {
+
+			FieldType* ptrActualPositionUP = &board.UpperBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X];
+			int* ptrActualPositionBB = &board.BackgroundBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X];
+
+			// Set/Remove flag
+			if (UserMouse->dwButtonState == RIGHTMOST_BUTTON_PRESSED) {
+				
+				// Put flag only when field is empty
+				if (*ptrActualPositionUP == FieldType::EMPTY) {
+					*ptrActualPositionUP = FieldType::FLAG;
+					std::cout << (char)*ptrActualPositionUP;
+				}
+				// Remove flag only when in this field is a flag
+				else if (*ptrActualPositionUP == FieldType::FLAG) {
+					*ptrActualPositionUP = FieldType::EMPTY;
+					std::cout << (char)*ptrActualPositionUP;
+				}
+			}
+
+			// Uncover fields
+			else if (UserMouse->dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+				// Can't be there any flag
+				if (*ptrActualPositionUP != FieldType::FLAG) {
+					// Game Over
+					if (*ptrActualPositionBB == -1) {
+						std::cout << "*" << std::flush;
+						*ptrActualPositionUP = FieldType::BOMB;
+					}
+
+					// Reveal number of nearby bombs
+					else {
+						*ptrActualPositionUP = FieldType::NUMBER;
+						std::cout << *ptrActualPositionBB << std::flush;
+					}
+				}
+			}
 		}
 	}
 }
