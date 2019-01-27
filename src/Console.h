@@ -1,6 +1,15 @@
 #pragma once
 #include <Windows.h>
 
+struct BoardSize;
+
+struct Mouse {
+	COORD crdPosition;
+	DWORD dwButtonState;
+
+	friend bool operator<(Mouse a, BoardSize b);
+};
+
 // Helps with console api/WinApi
 struct Console {
 	// Handlers
@@ -14,12 +23,12 @@ struct Console {
 	INPUT_RECORD input;
 
 	// Coords of cursor
-	COORD crdCursor;
+	Mouse UserMouse;
 
 	CONSOLE_CURSOR_INFO hConsoleCursorInfo;
 
 	Console();
 
-	COORD WaitForClick();
+	void WaitForClick();
 	void ChangeCursorVisibility(bool disable = true);
 };

@@ -111,13 +111,17 @@ void Game::ShowBoard() {
 void Game::Start() {
 	ShowBoard();
 
+	Mouse* UserMouse = &cmd.UserMouse;
 	while (true) {
-		COORD crd = cmd.WaitForClick();
-		if (crd < board.size) {
-			if (board.BackgroundBoard[crd.Y][crd.X] == -1)
+		cmd.WaitForClick();
+		if (*UserMouse < board.size) {
+			
+			// Game Over
+			if (board.BackgroundBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X] == -1)
 				std::cout << "*" << std::flush;
+
 			else
-				std::cout << board.BackgroundBoard[crd.Y][crd.X] << std::flush;
+				std::cout << board.BackgroundBoard[UserMouse->crdPosition.Y][UserMouse->crdPosition.X] << std::flush;
 		}
 	}
 }

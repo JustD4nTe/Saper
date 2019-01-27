@@ -1,6 +1,5 @@
 #pragma once
 #include "Board.h"
-#include "Console.h"
 
 // "Core" of this game
 struct Game {

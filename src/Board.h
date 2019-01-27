@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 
+#include "Console.h"
 
 // Possible types of one field
 enum FieldType {
@@ -19,7 +20,7 @@ struct BoardSize{
 		height = y;
 	}
 
-	friend bool operator<(COORD a, BoardSize b);
+	friend bool operator<(Mouse a, BoardSize b);
 };
 
 // Yup, board structure

@@ -20,8 +20,8 @@ Board::Board() {
 		BackgroundBoard[y] = new int[size.width] {0};
 }
 
-bool operator<(COORD a, BoardSize b) {
-	if (a.X < b.width && a.Y < b.height)
+bool operator<(Mouse a, BoardSize b) {
+	if (a.crdPosition.X < b.width && a.crdPosition.Y < b.height)
 		return true;
 	else
 		return false;
