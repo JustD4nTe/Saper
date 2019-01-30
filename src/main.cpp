@@ -8,6 +8,8 @@ int main()
 
 	game.Start();
 
+	game.EndScreen();
+
 	system("pause");
 	return 0;
 }

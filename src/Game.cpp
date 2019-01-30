@@ -7,6 +7,8 @@
 // Constructor
 Game::Game() {
 	InitBoard();
+
+	game = GameStatus::inProgress;
 }
 
 // Randomize mines on map
@@ -103,7 +105,7 @@ void Game::Start() {
 	Mouse* UserMouse = &cmd.UserMouse;
 
 	// General loop 
-	while (true) {	
+	while (game == GameStatus::inProgress) {	
 		cmd.WaitForClick();
 
 		// User must indicate a board
@@ -135,6 +137,7 @@ void Game::Start() {
 					if (*ptrActualPositionBB == -1) {
 						*ptrActualPositionUP = FieldType::BOMB;
 						std::cout << "#" << std::flush;
+						game = GameStatus::Lose;
 					}
 
 					// Reveal number of nearby bombs
@@ -145,5 +148,24 @@ void Game::Start() {
 				}
 			}
 		}
+	}
+}
+
+// When game is end
+// some text will be displayed
+void Game::EndScreen() {
+	COORD crdEndScreenPosition;
+	crdEndScreenPosition.X = 0;
+	crdEndScreenPosition.Y = board.size.height + 3;
+
+	cmd.SetCursorPosition(crdEndScreenPosition);
+
+	switch (game){
+	case Win:
+		std::cout << "You win!! Congratulations :D\n" << std::flush;
+		break;
+	case Lose:
+		std::cout << "You lose, try again :<\n" << std::flush;
+		break;
 	}
 }
