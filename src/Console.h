@@ -15,6 +15,7 @@ struct Console {
 	// Handlers
 	HANDLE hIn;
 	HANDLE hOut;
+	CONSOLE_CURSOR_INFO hConsoleCursorInfo;
 
 	// Console flags
 	DWORD dwConsoleMode;
@@ -24,11 +25,13 @@ struct Console {
 
 	// Coords of cursor
 	Mouse UserMouse;
+	   
 
-	CONSOLE_CURSOR_INFO hConsoleCursorInfo;
-
+	// Constructor
 	Console();
 
+	// Methods
 	void WaitForClick();
 	void ChangeCursorVisibility(bool disable = true);
+	void SetCursorPosition(const COORD crdPosition);
 };

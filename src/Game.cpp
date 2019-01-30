@@ -93,19 +93,6 @@ void Game::ShowBoard() {
 
 		std::cout << std::endl;
 	}
-
-#ifdef DEBUG
-	for (unsigned y = 0; y < board.size.height; y++) {
-		for (unsigned x = 0; x < board.size.width; x++) {
-			if (board.BackgroundBoard[y][x] == -1)
-				std::cout << "*";
-			else
-				std::cout << board.BackgroundBoard[y][x];
-		}
-		std::cout << std::endl;
-	}
-#endif // DEBUG
-
 }
 
 // All game
@@ -146,8 +133,8 @@ void Game::Start() {
 				if (*ptrActualPositionUP != FieldType::FLAG) {
 					// Game Over
 					if (*ptrActualPositionBB == -1) {
-						std::cout << "*" << std::flush;
 						*ptrActualPositionUP = FieldType::BOMB;
+						std::cout << "#" << std::flush;
 					}
 
 					// Reveal number of nearby bombs

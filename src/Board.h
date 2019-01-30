@@ -6,12 +6,12 @@
 // Possible types of one field
 enum FieldType {
 	EMPTY = ' ',
-	BOMB = '*',
+	BOMB = '#',
 	NUMBER = '0',
 	FLAG = 'F'
 };
 
-// Uhm, just size of board counted from 0 (not 1)
+// Just size of board counted from 0 (not 1)
 struct BoardSize{
 	unsigned width;
 	unsigned height;
