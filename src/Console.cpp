@@ -20,6 +20,9 @@ Console::Console() {
 	// Disable cursor, we don't need it
 	// looks better without it
 	ChangeCursorVisibility();
+
+	UserMouse = Mouse();
+	LastMouse = Mouse();
 }
 
 // Enable/Disable cursor visibility in CMD
@@ -43,13 +46,19 @@ void Console::WaitForClick() {
 		case MOUSE_EVENT:
 			// Set value only when left/right button was clicked
 			if (input.Event.MouseEvent.dwButtonState & (FROM_LEFT_1ST_BUTTON_PRESSED | RIGHTMOST_BUTTON_PRESSED)) {
-				// Position
-				UserMouse.crdPosition = input.Event.MouseEvent.dwMousePosition;
-				// Buttons clicked
-				UserMouse.dwButtonState = input.Event.MouseEvent.dwButtonState;
-				// Set cursor position at same as mouse
-				SetConsoleCursorPosition(hOut, UserMouse.crdPosition);
-				return;
+				if (LastMouse.dwButtonState != input.Event.MouseEvent.dwButtonState &&
+					(LastMouse.crdPosition.X != input.Event.MouseEvent.dwMousePosition.X ||
+						LastMouse.crdPosition.Y != input.Event.MouseEvent.dwMousePosition.Y)) {
+					// Position
+					UserMouse.crdPosition = input.Event.MouseEvent.dwMousePosition;
+					// Buttons clicked
+					UserMouse.dwButtonState = input.Event.MouseEvent.dwButtonState;
+
+					LastMouse = UserMouse;
+					// Set cursor position at same as mouse
+					SetConsoleCursorPosition(hOut, UserMouse.crdPosition);
+					return;
+				}
 			}
 		}
 	}

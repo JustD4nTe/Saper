@@ -25,6 +25,8 @@ struct Console {
 	// Coords of cursor
 	Mouse UserMouse;
 
+	Mouse LastMouse;
+
 	CONSOLE_CURSOR_INFO hConsoleCursorInfo;
 
 	Console();
