@@ -14,6 +14,9 @@ struct Game {
 
 	GameStatus game;
 
+	// How many flags we can put 
+	unsigned FlagCounter;
+
 	// Methods
 	Game();
 
@@ -23,6 +26,9 @@ struct Game {
 	void InitBoard();
 
 	void DrawFrame();
+	void WriteInfo();
+
+	void UpdateFlags();
 
 
 	void Start();

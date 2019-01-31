@@ -11,6 +11,8 @@ Game::Game() {
 	InitBoard();
 
 	game = GameStatus::inProgress;
+
+	FlagCounter = board.Bombs;
 }
 
 // Randomize mines on map
@@ -114,6 +116,7 @@ void Game::DrawFrame() {
 void Game::Start() {
 	// Drawning frame for board on screen
 	DrawFrame();
+	WriteInfo();
 
 	Mouse* UserMouse = &cmd.UserMouse;
 
@@ -132,14 +135,18 @@ void Game::Start() {
 			if (UserMouse->dwButtonState == RIGHTMOST_BUTTON_PRESSED) {
 				
 				// Put flag only when field is empty
-				if (*ptrActualPositionUP == FieldType::EMPTY) {
+				if (*ptrActualPositionUP == FieldType::EMPTY && FlagCounter > 0) {
 					*ptrActualPositionUP = FieldType::FLAG;
 					std::cout << (char)*ptrActualPositionUP;
+					FlagCounter--;
+					UpdateFlags();
 				}
 				// Remove flag only when in this field is a flag
 				else if (*ptrActualPositionUP == FieldType::FLAG) {
 					*ptrActualPositionUP = FieldType::EMPTY;
 					std::cout << (char)*ptrActualPositionUP;
+					FlagCounter++;
+					UpdateFlags();
 				}
 			}
 
@@ -182,4 +189,16 @@ void Game::EndScreen() {
 		std::cout << "You lose, try again :<\n" << std::flush;
 		break;
 	}
+}
+
+void Game::WriteInfo() {
+	cmd.SetCursorPosition(COORD{ static_cast<short>(board.size.width + 5), 2 });
+	std::cout << "Flags: " << FlagCounter << std::endl;
+	// TODO: TIMER
+}
+
+void Game::UpdateFlags() {
+	// 5 + "Flags: ".length
+	cmd.SetCursorPosition(COORD{ static_cast<short>(board.size.width + 12), 2 });
+	std::cout << FlagCounter << ' ' << std::endl;
 }
