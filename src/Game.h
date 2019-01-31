@@ -22,7 +22,7 @@ struct Game {
 
 	void InitBoard();
 
-	void ShowBoard();
+	void DrawFrame();
 
 
 	void Start();

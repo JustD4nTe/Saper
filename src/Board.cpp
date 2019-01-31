@@ -21,8 +21,13 @@ Board::Board() {
 }
 
 bool operator<(Mouse a, BoardSize b) {
-	if (a.crdPosition.X < b.width && a.crdPosition.Y < b.height)
+	// Frame is around board, so we don't need click that
+	if (a.crdPosition.X == 0 || a.crdPosition.Y == 0)
+		return false;
+
+	if ((a.crdPosition.X - 1 )< b.width && (a.crdPosition.Y - 1) < b.height)
 		return true;
+
 	else
 		return false;
 }
