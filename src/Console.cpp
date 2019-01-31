@@ -1,5 +1,7 @@
 #include "Console.h"
 
+#define NORMAL_COLOR 0x0f
+#define HOVER_COLOR 0xf0
 
 // Constructor
 Console::Console() {
@@ -20,6 +22,8 @@ Console::Console() {
 	// Disable cursor, we don't need it
 	// looks better without it
 	ChangeCursorVisibility();
+
+	UserMouse = Mouse();
 }
 
 // Enable/Disable cursor visibility in CMD
@@ -41,16 +45,14 @@ void Console::WaitForClick() {
 
 		switch (input.EventType){
 		case MOUSE_EVENT:
-			// Set value only when left/right button was clicked
-			if (input.Event.MouseEvent.dwButtonState & (FROM_LEFT_1ST_BUTTON_PRESSED | RIGHTMOST_BUTTON_PRESSED)) {
 				// Assign variables
 				UserMouse.crdPosition = input.Event.MouseEvent.dwMousePosition;
 				UserMouse.dwButtonState = input.Event.MouseEvent.dwButtonState;
 
 				// Set mouse position
 				SetCursorPosition(UserMouse.crdPosition);
+				SetConsoleTextAttribute(hOut, HOVER_COLOR);
 				return;
-			}
 		}
 	}
 }
@@ -58,4 +60,9 @@ void Console::WaitForClick() {
 // Set cursor position
 void Console::SetCursorPosition(const COORD crdPosition) {
 	SetConsoleCursorPosition(hOut, crdPosition);
+}
+
+char Console::ChangeColor(char (*ptrGetChar)(Board* board, unsigned x, unsigned y), Board* board) {
+	SetConsoleTextAttribute(hOut, NORMAL_COLOR);
+	return  ptrGetChar(board, UserMouse.crdPosition.X, UserMouse.crdPosition.Y);
 }

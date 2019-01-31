@@ -2,10 +2,13 @@
 #include <Windows.h>
 
 struct BoardSize;
+struct Board;
 
 struct Mouse {
 	COORD crdPosition;
 	DWORD dwButtonState;
+
+	Mouse() : crdPosition(), dwButtonState(0){}
 
 	friend bool operator<(Mouse a, BoardSize b);
 };
@@ -34,4 +37,6 @@ struct Console {
 	void WaitForClick();
 	void ChangeCursorVisibility(bool disable = true);
 	void SetCursorPosition(const COORD crdPosition);
+
+	char ChangeColor(char(*ptrGetChar)(Board* board, unsigned x, unsigned y), Board* board);
 };

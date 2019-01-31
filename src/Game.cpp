@@ -97,6 +97,10 @@ void Game::ShowBoard() {
 	}
 }
 
+char GetCharacter(Board* board, unsigned x, unsigned y) {
+	return (board->UpperBoard[y][x] != FieldType::NUMBER ? (char)board->UpperBoard[y][x] : (char)(board->BackgroundBoard[y][x] + 48));
+}
+
 // All game
 void Game::Start() {
 	// Drawning board on screen
@@ -105,7 +109,8 @@ void Game::Start() {
 	Mouse* UserMouse = &cmd.UserMouse;
 
 	// General loop 
-	while (game == GameStatus::inProgress) {	
+	while (game == GameStatus::inProgress) {
+		std::cout << cmd.ChangeColor(&GetCharacter, &board);
 		cmd.WaitForClick();
 
 		// User must indicate a board
@@ -146,6 +151,10 @@ void Game::Start() {
 						std::cout << *ptrActualPositionBB << std::flush;
 					}
 				}
+			}
+			
+			else{
+				std::cout << GetCharacter(&board, UserMouse->crdPosition.X, UserMouse->crdPosition.Y);
 			}
 		}
 	}
