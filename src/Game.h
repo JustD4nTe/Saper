@@ -30,6 +30,7 @@ struct Game {
 
 	void UpdateFlags();
 
+	void RevealEmptyFields(int x, int y);
 
 	void Start();
 	void EndScreen();

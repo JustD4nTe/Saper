@@ -163,8 +163,7 @@ void Game::Start() {
 
 					// Reveal number of nearby bombs
 					else {
-						*ptrActualPositionUP = FieldType::NUMBER;
-						std::cout << *ptrActualPositionBB << std::flush;
+						RevealEmptyFields(UserMouse->crdPosition.X - 1, UserMouse->crdPosition.Y - 1);
 					}
 				}
 			}
@@ -201,4 +200,40 @@ void Game::UpdateFlags() {
 	// 5 + "Flags: ".length
 	cmd.SetCursorPosition(COORD{ static_cast<short>(board.size.width + 12), 2 });
 	std::cout << FlagCounter << ' ' << std::endl;
+}
+
+// Shows numbers/empty fields
+void Game::RevealEmptyFields(int x, int y) {
+	if (x < 0 || y < 0)
+		return;
+	if (x >= board.size.width || y >= board.size.height)
+		return;
+
+	// When something is in this field
+	if (board.UpperBoard[y][x] != FieldType::EMPTY )
+		return;
+
+	// Set new position to write
+	cmd.SetCursorPosition(COORD{static_cast<short>(x + 1), static_cast<short>(y + 1)});
+
+	std::cout << board.BackgroundBoard[y][x] << std::flush;
+
+	// When number is 0 (zero bombs around)
+	// then check other 8 directions
+	if (board.BackgroundBoard[y][x] == 0) {
+		board.UpperBoard[y][x] = FieldType::NOTHING;
+
+		RevealEmptyFields(x - 1, y - 1);
+		RevealEmptyFields(x - 1, y);
+		RevealEmptyFields(x - 1, y + 1);
+		RevealEmptyFields(x + 1, y - 1);
+		RevealEmptyFields(x + 1, y);
+		RevealEmptyFields(x + 1, y + 1);
+		RevealEmptyFields(x, y - 1);
+		RevealEmptyFields(x, y + 1);
+
+	}
+
+	else
+		board.UpperBoard[y][x] = FieldType::NUMBER;
 }
