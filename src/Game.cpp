@@ -164,6 +164,8 @@ void Game::Start() {
 					// Reveal number of nearby bombs
 					else {
 						RevealEmptyFields(UserMouse->crdPosition.X - 1, UserMouse->crdPosition.Y - 1);
+
+						Check();
 					}
 				}
 			}
@@ -218,6 +220,8 @@ void Game::RevealEmptyFields(int x, int y) {
 
 	std::cout << board.BackgroundBoard[y][x] << std::flush;
 
+	board.NumberOfTakenFields++;
+
 	// When number is 0 (zero bombs around)
 	// then check other 8 directions
 	if (board.BackgroundBoard[y][x] == 0) {
@@ -236,4 +240,11 @@ void Game::RevealEmptyFields(int x, int y) {
 
 	else
 		board.UpperBoard[y][x] = FieldType::NUMBER;
+}
+
+
+// Checking if game is over (player wins)
+void Game::Check() {
+	if (board.NumberOfAllFieldsWithoutBombs == board.NumberOfTakenFields)
+		game = GameStatus::Win;
 }

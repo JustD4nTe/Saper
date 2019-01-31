@@ -32,6 +32,8 @@ struct Game {
 
 	void RevealEmptyFields(int x, int y);
 
+	void Check();
+
 	void Start();
 	void EndScreen();
 };

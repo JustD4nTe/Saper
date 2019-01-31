@@ -18,6 +18,9 @@ Board::Board() {
 	BackgroundBoard = new int*[size.height];
 	for (unsigned y = 0; y < size.height; y++)
 		BackgroundBoard[y] = new int[size.width] {0};
+
+	NumberOfAllFieldsWithoutBombs = ((size.width * size.height) - Bombs);
+	NumberOfTakenFields = 0;
 }
 
 bool operator<(Mouse a, BoardSize b) {

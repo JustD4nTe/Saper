@@ -30,8 +30,13 @@ struct BoardSize{
 struct Board {
 	// Store size of a boards
 	BoardSize size;
+
 	// Number of bombs
 	unsigned Bombs = 10;
+
+	// Some important variables
+	unsigned int NumberOfAllFieldsWithoutBombs;
+	unsigned int NumberOfTakenFields;
 
 	// For display
 	FieldType** UpperBoard;
