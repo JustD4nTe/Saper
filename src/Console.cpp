@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Console.h"
 
 
@@ -58,4 +60,18 @@ void Console::WaitForClick() {
 // Set cursor position
 void Console::SetCursorPosition(const COORD crdPosition) {
 	SetConsoleCursorPosition(hOut, crdPosition);
+}
+
+#define FLAG_COLOR 0x0C
+#define NORMAL_COLOR 0x0f
+
+// Set default color, or specific (foregound red) for flag
+void Console::SetDefaultColor() {
+	SetConsoleTextAttribute(hOut, NORMAL_COLOR);
+}
+
+void Console::SetColorFlag(char charForFlag) {
+	SetConsoleTextAttribute(hOut, FLAG_COLOR);
+	std::cout << charForFlag;
+	SetDefaultColor();
 }

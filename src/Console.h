@@ -34,4 +34,6 @@ struct Console {
 	void WaitForClick();
 	void ChangeCursorVisibility(bool disable = true);
 	void SetCursorPosition(const COORD crdPosition);
+	void SetDefaultColor();
+	void SetColorFlag(char charForFlag);
 };

@@ -114,6 +114,9 @@ void Game::DrawFrame() {
 
 // All game
 void Game::Start() {
+	// Set default color
+	cmd.SetDefaultColor();
+
 	// Drawning frame for board on screen
 	DrawFrame();
 	WriteInfo();
@@ -137,7 +140,7 @@ void Game::Start() {
 				// Put flag only when field is empty
 				if (*ptrActualPositionUP == FieldType::EMPTY && FlagCounter > 0) {
 					*ptrActualPositionUP = FieldType::FLAG;
-					std::cout << (char)*ptrActualPositionUP;
+					cmd.SetColorFlag((char)*ptrActualPositionUP);
 					FlagCounter--;
 					UpdateFlags();
 				}
