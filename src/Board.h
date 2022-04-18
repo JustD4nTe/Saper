@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <Windows.h>
 
 #include "Console.h"
@@ -46,3 +48,5 @@ struct Board {
 	// Constructor
 	Board();
 };
+
+#endif
