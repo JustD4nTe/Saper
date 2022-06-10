@@ -1,4 +1,6 @@
-#pragma once
+#ifndef GAME_H
+#define GAME_H
+
 #include "Board.h"
 
 enum GameStatus {
@@ -37,3 +39,5 @@ struct Game {
 	void Start();
 	void EndScreen();
 };
+
+#endif

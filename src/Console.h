@@ -1,4 +1,6 @@
-#pragma once
+#ifndef CONSOLE_H
+#define CONSOLE_H
+
 #include <Windows.h>
 
 struct BoardSize;
@@ -37,3 +39,5 @@ struct Console {
 	void SetDefaultColor();
 	void SetColorFlag(char charForFlag);
 };
+
+#endif
